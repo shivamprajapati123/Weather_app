@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Weather App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="index.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+            min-height: 100vh;
+        }
+        .navbar {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .main-title {
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            font-weight: 700;
+            color: #0077b6;
+        }
+        .card {
+            border-radius: 1rem;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+        }
+        .table th, .table td {
+            vertical-align: middle;
+        }
+        .table thead th {
+            background: #0077b6;
+            color: #fff;
+        }
+        .city-card {
+            background: #f8f9fa;
+        }
+        .weather-table {
+            background: #fff;
+            border-radius: 1rem;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+            margin-bottom: 2rem;
+        }
+        .search-form input {
+            border-radius: 2rem 0 0 2rem;
+        }
+        .search-form button {
+            border-radius: 0 2rem 2rem 0;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-3 text-primary" href="#">Weather App</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    
+                    
+                </ul>
+                <form class="d-flex search-form" role="search" method="post" action="/submit">
+                    <input class="form-control me-2" type="search" placeholder="Search city..." aria-label="Search"
+                        name="newCity" id="eleCity">
+                    <button class="btn btn-outline-primary" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <main>
+            <h1 class="main-title text-center city">
+                <%= locals.City %>
+            </h1>
+            <div class="row row-cols-1 row-cols-md-3 mb-4 text-center">
+                <div class="col mb-3">
+                    <div class="card city-card h-100">
+                        <div class="card-header py-3 bg-info text-white rounded-top">
+                            <h4 class="my-0 fw-normal">Humidity Info</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title">
+                                <%= locals.Humidity %> <small class="text-body-secondary fw-light">%</small>
+                            </h1>
+                            <ul class="list-unstyled mt-3 mb-4">
+                                <li>Humidity: <strong><%= locals.Humidity %></strong></li>
+                                <li>Feels like: <strong><%= locals.Feels_like %></strong></li>
+                                <li>Wind degrees: <strong><%= locals.Wind_degrees %></strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-3">
+                    <div class="card city-card h-100">
+                        <div class="card-header py-3 bg-primary text-white rounded-top">
+                            <h4 class="my-0 fw-normal">Temperature</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title">
+                                <%= locals.Temperature %><small class="text-body-secondary fw-light">&deg;C</small>
+                            </h1>
+                            <ul class="list-unstyled mt-3 mb-4">
+                                <li>Temperature: <strong><%= locals.Temperature %></strong></li>
+                                <li>Min: <strong><%= locals.Min_temp %></strong> &deg;C</li>
+                                <li>Max: <strong><%= locals.Max_temp %></strong> &deg;C</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-3">
+                    <div class="card city-card h-100">
+                        <div class="card-header py-3 bg-warning text-white rounded-top">
+                            <h4 class="my-0 fw-normal">Wind Info</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title">
+                                <%= locals.Wind_speed %><small class="text-body-secondary fw-light"> km/hr</small>
+                            </h1>
+                            <ul class="list-unstyled mt-3 mb-4">
+                                <li>Wind speed: <strong><%= locals.Wind_speed %></strong></li>
+                                <li>Sunrise: <strong><%= locals.Sunrise %></strong></li>
+                                <li>Sunset: <strong><%= locals.Sunset %></strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="display-6 text-center mb-4 text-primary">Weather of Common Cities of India</h2>
+
+            <div class="table-responsive weather-table p-3">
+                <table class="table table-hover text-center align-middle">
+                    <thead>
+                        <tr>
+                            <th>City</th>
+                            <th>Temp (&deg;C)</th>
+                            <th>Feels Like</th>
+                            <th>Humidity (%)</th>
+                            <th>Min Temp (&deg;C)</th>
+                            <th>Max Temp (&deg;C)</th>
+                            <th>Wind Speed (km/hr)</th>
+                            <th>Wind Degrees (&deg;)</th>
+                            <th>Sunrise</th>
+                            <th>Sunset</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row" class="text-start">Mumbai</th>
+                            <td><%= locals.Temperature_mumbai %></td>
+                            <td><%= locals.Feels_like_mumbai %></td>
+                            <td><%= locals.Humidity_mumbai %></td>
+                            <td><%= locals.Min_temp_mumbai %></td>
+                            <td><%= locals.Max_temp_mumbai %></td>
+                            <td><%= locals.Wind_speed_mumbai %></td>
+                            <td><%= locals.Wind_degrees_mumbai %></td>
+                            <td><%= locals.Sunrise_mumbai %></td>
+                            <td><%= locals.Sunset_mumbai %></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="text-start">Lucknow</th>
+                            <td><%= locals.Temperature_lucknow %></td>
+                            <td><%= locals.Feels_like_lucknow %></td>
+                            <td><%= locals.Humidity_lucknow %></td>
+                            <td><%= locals.Min_temp_lucknow %></td>
+                            <td><%= locals.Max_temp_lucknow %></td>
+                            <td><%= locals.Wind_speed_lucknow %></td>
+                            <td><%= locals.Wind_degrees_lucknow %></td>
+                            <td><%= locals.Sunrise_lucknow %></td>
+                            <td><%= locals.Sunset_lucknow %></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="text-start">Delhi</th>
+                            <td><%= locals.Temperature_delhi %></td>
+                            <td><%= locals.Feels_like_delhi %></td>
+                            <td><%= locals.Humidity_delhi %></td>
+                            <td><%= locals.Min_temp_delhi %></td>
+                            <td><%= locals.Max_temp_delhi %></td>
+                            <td><%= locals.Wind_speed_delhi %></td>
+                            <td><%= locals.Wind_degrees_delhi %></td>
+                            <td><%= locals.Sunrise_delhi %></td>
+                            <td><%= locals.Sunset_delhi %></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="text-start">Bengaluru</th>
+                            <td><%= locals.Temperature_Bengaluru %></td>
+                            <td><%= locals.Feels_like_Bengaluru %></td>
+                            <td><%= locals.Humidity_Bengaluru %></td>
+                            <td><%= locals.Min_temp_Bengaluru %></td>
+                            <td><%= locals.Max_temp_Bengaluru %></td>
+                            <td><%= locals.Wind_speed_Bengaluru %></td>
+                            <td><%= locals.Wind_degrees_Bengaluru %></td>
+                            <td><%= locals.Sunrise_Bengaluru %></td>
+                            <td><%= locals.Sunset_Bengaluru %></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <footer class="text-center py-4 mt-4 bg-light rounded-top shadow-sm">
+        <span class="text-muted">Weather App &copy; 2025 | Powered by RapidAPI & Bootstrap</span>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
