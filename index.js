@@ -15,9 +15,9 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const API_URL = "https://weather-api138.p.rapidapi.com/weather";
-const API_KEY = "80def33d48msha5bd8a932359f74p15d1e9jsn2b2bd0ab4afb";
-const API_HOST = "weather-api138.p.rapidapi.com";
+const API_URL = process.env.API_URL;
+const API_KEY = process.env.RAPIDAPI_KEY;
+const API_HOST = process.env.RAPIDAPI_HOST;
 
 const getWeather = async (city) => {
   try {
