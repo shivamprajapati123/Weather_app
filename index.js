@@ -3,6 +3,8 @@ import axios from "axios";
 import bodyParser from "body-parser";
 import path from "path";
 import { fileURLToPath } from "url";
+import dotenv from "dotenv";
+dotenv.config();
 
 const port = 3000;
 const app = express();
@@ -15,9 +17,9 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const API_URL = process.env.API_URL;
-const API_KEY = process.env.RAPIDAPI_KEY;
-const API_HOST = process.env.RAPIDAPI_HOST;
+const API_URL = process.env.URL;
+const API_KEY = process.env.KEY;
+const API_HOST = process.env.HOST;
 
 const getWeather = async (city) => {
   try {
